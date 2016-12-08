@@ -1,0 +1,69 @@
+/*孩子切换start*/
+.container{
+	background: #f8f8f8;
+}
+/*头部介绍start*/
+.status-fix{
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+	background: #fff;
+	color: #636363;
+	padding: 0 10px;
+}
+.status-fix i{
+	display: block;
+	float: left;
+	width: 13px;
+	height: 13px;
+	margin-right: 5px;
+}
+.status-fix i img{
+	width: 100%;
+	vertical-align: -2px;
+}
+.status-fix em{
+	color: #fd8339;
+}
+/*头部介绍end*/
+.tab-child{
+	padding: 25px 10px 10px;
+}
+.tab-child ul li{
+	height: 150px;
+	text-align: center;
+	border-radius: 5px;
+    margin-bottom: 15px;
+}
+.tab-child ul li span{
+	display: inline-block;
+	width: 54px;
+	height: 54px;
+	text-align: center;
+	margin: 20px 0 4px;
+}
+.tab-child ul li span img{
+	width: 90%;
+	margin-top: 2px;
+}
+.tab-child ul li p{
+	font-size: 18px;
+	color: #fff;
+}
+.tab-child ul li:nth-child(3n+1){
+	background: #639dd8;
+	background-size: 100%;
+}
+.tab-child ul li:nth-child(3n+2){
+	background:#2ed086;
+	background-size: 100%;
+}
+.tab-child ul li:nth-child(3n+3){
+	background: #eeb74c;
+	background-size: 100%;
+}
+.tab-child ul li span{
+	background: url(../../../static/images/sculpture.png);
+	background-size: 100%;
+}
+/*孩子切换end

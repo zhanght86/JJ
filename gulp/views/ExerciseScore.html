@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习成绩</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="http://xuexin-file.oss-cn-hangzhou.aliyuncs.com/UedOss/xxdev/mistakes/wap/pkg/resect.css">
+	<script type="text/javascript" src="../static/js/jquery-3.1.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://xuexin-file.oss-cn-hangzhou.aliyuncs.com/UedOss/xxdev/mistakes/wap/pkg/ExerciseScore.html_aio.css" />
+</head>
+<body ontouchstart="" style="background-color:#f8f8f8;">
+	<div class="container cf">
+		<div class="content content_s cf">
+	<div class="accuracy cf">
+		<div class="score_view cf">
+			<div class="table-view cf">
+				<span id="percent"></span>
+				<p>客观题正确率</p>
+			</div>
+		</div>
+		<div class="cf infos">
+		    <p>
+		      <span >客观题总数(题)</span>
+		      <span id="questionNum">0</span>
+		    </p>
+		    <p>
+		      <span>总用时(分)</span>
+		      <span id="totalTime" >0</span>
+		    </p>
+		    <p>
+		      <span>平均每题用时(分)</span>
+		      <span id="everyTime" >0</span>
+		    </p>
+		</div>
+	</div>
+	<div class="answertype cf">
+		客观题
+	</div>
+	<ul id="selectq" class="answertable cf">
+		
+
+	</ul>
+	<div class="answertype cf">
+		主观题
+	</div>
+	<ul id="jtq" class="answertable cf">
+		
+
+	</ul>
+	
+	</div>
+	<div class="palette palette0 cf">
+		<a id="testDetail" href="javascript:;" class="delet cf">
+			<span class="analy"></span>
+			<em>题目解析</em>
+		</a>
+		<a id="createPaper" href="javascript:;"  class="consoli cf hide">
+			<span></span>
+			<em>继续练习</em>
+		</a>
+		<a id="goback" href="javascript:;"  class="practice cf">
+			<span></span>
+			<em>返回上级</em>
+		</a>
+	</div>
+	<script type="text/javascript" src="../static/js/API.js"></script>
+	<script type="text/javascript" src="../static/js/part/layer.js"></script>
+<script type="text/javascript" src="../static/js/home/ExerciseScore.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+.container{
+	background: #f8f8f8;
+}
+.learning-stage{
+	height: 44px;
+	font-size: 16px;
+	color: #999;
+	border-bottom: 1px solid #eee;
+	background: #fff;
+	margin-bottom: 15px;
+}
+.learning-stage .learning-stage-li{
+    display: inline-block;
+    float: left;
+    width: 33.3333%;
+    line-height: 44px;
+    text-align: center;
+}
+.learning-stage .learning-stage-grade{
+	display: inline-block;
+	height: 42px;
+	padding:0px 5px;
+    border-bottom:2px solid rgba(0,0,0,0);
+	font-size: 16px;
+}
+.on .learning-stage-grade{
+	color: #39ba60;
+    border-bottom:2px solid #39ba60;
+    transition-duration:0.6s;
+}
+.discipline{
+	/* margin-top: 15px; */
+	border-top: 1px solid #eee;
+	/*background: #fff;*/
+}
+.discipline .discipline-subject{
+    display: none;
+}
+.discipline .discipline-subject:first-child{
+	display1: block;
+}
+.discipline-subject-li{
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	float: left;
+	height: 54px;
+	line-height: 54px;
+	width: 50%;
+	padding-left: 65px;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	font-size: 16px;
+	color: #333;
+}
+.discipline-subject-li a{
+	color: #333;
+}
+.discipline-subject-li:active a{
+	color: #39ba60;
+}
+.discipline .discipline-subject-li:nth-child(2n){
+    border-right: none;
+}
+.chinese{
+	background: url(../../../static/images/chinese.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.math{
+	background: url(../../../static/images/math.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.english{
+	background: url(../../../static/images/english.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.history{
+	background: url(../../../static/images/history.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.politics{
+	background: url(../../../static/images/politics.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.geography{
+	background: url(../../../static/images/geography.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.physics{
+	background: url(../../../static/images/physics.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.chemistry{
+	background: url(../../../static/images/chemistry.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.biology{
+	background: url(../../../static/images/biology.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.science{
+	background: url(../../../static/images/science.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.science-synthesis{
+	background: url(../../../static/images/science-synthesis.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.arts-synthesis{
+	background: url(../../../static/images/arts-synthesis.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.it{
+	background: url(../../../static/images/it.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+.general-technique{
+	background: url(../../../static/images/general-technique.png) no-repeat 35px 14px #fff;
+	background-size: 25px 25px;
+}
+/* panx */
+.phaseUl li.select{
+	border-bottom:1px solid red;
+}
+ul.discipline-subject{
+	display:none;
+}
+.discipline-subject.select{
+	display: block;
+}
+.discipline-subject.select li.select a{
+	color:#39ba60;
+}
+.discipline-subject-li.select a{
+	color:#39ba60;
+}

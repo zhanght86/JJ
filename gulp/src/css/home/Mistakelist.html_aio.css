@@ -1,0 +1,258 @@
+html,body,.container{
+	height: 100%;
+	overflow-x: hidden;
+}
+.content{
+	overflow-y:auto;
+	-webkit-overflow-scrolling:touch;
+	background-color: #fff;
+}
+.content_list{
+	background-color: #F8F8F8;
+}
+/*试题详情头部start*/
+.top{
+	height: 44px;
+	border-bottom: solid 1px #ddd;
+	padding: 0 15px;
+	line-height: 44px;
+	color: #939393;
+	font-size: 14px;
+	background: #f8f8f8;
+}
+.top .time{
+	float: left;
+}
+.top .peg{
+	float: right;
+}
+.top .peg span{
+	color: #f26e61;
+}
+/*试题详情头部end*/
+
+/*错题列表头部start*/
+.top  .mistake-style{
+	float: left;
+	width: 76%;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+.top a{
+	display: block;
+	float: right;
+	height: 24px;
+	width: 67px;
+	line-height: 24px;
+	text-align: center;
+	color: #f8f8f8;
+	background: #5b9aee;
+	border-radius: 3px;
+	font-size: 14px;
+	margin-top: 10px;
+}
+.top a:active{
+	background: #4986eb;
+}
+/*错题列表头部end*/
+/*Ìâ¸Éstart*/
+.stem{
+	border-bottom: solid 1px #ddd;
+	padding: 20px 15px;
+	font-size: 15px;
+	color: #333;
+	background-color: #fff;
+}
+.content_list .stem{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: solid 1px #ddd;
+}
+.stem .title{
+	margin-bottom: 15px;
+}
+/*Ìâ¸Éend*/
+
+/*´íÌâÁÐ±íÌâ¸ÉÀ´Ô´²Ù×÷²¿·Östart*/
+
+.handle .sourse-left{
+	display: inline-block;
+	width: 80%;
+}
+.handle  .sourse-left span{
+	display: block;
+	float: left;
+}
+.handle  .sourse-left span.redundant{
+	display: block;
+	width: 80%;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+.handle a {
+	display: block;
+	float: right;
+	width: 44px;
+	height: 22px;
+	background-color: #5b9aee;
+	line-height: 25px;
+	text-align: center;
+	border-radius: 3px;
+}
+.deleteicon {
+	background: url(../../../static/images/widget/stem/delet.png) no-repeat center center;
+	background-size: 15px 14px;
+}
+
+.handle  a:active{
+	background: #4986eb;
+}
+.handle  a img{
+	width: 15px;
+	height: 15px;
+}
+/*´íÌâÁÐ±íÌâ¸ÉÀ´Ô´²Ù×÷²¿·Öend*/
+/*试题详情底部操作栏部分start*/
+.palette{
+	height: 49px;
+	width: 100%;
+	background: #fcfcfc;
+	position: relative;
+	z-index: 10;
+	border-top: 1px solid #ddd;
+}
+.palette .consoli,.palette .delet,.prac-list a{
+	display: block;
+	float: left;
+	width: 50%;
+	height: 49px;
+	text-align: center;
+	font-size: 10px;
+}
+.palette a:active,.palette.prac-list a:active{
+	background: #f2f0f0;
+}
+.palette .consoli span,.delet span,.practice span{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-top: 8px;
+}
+.palette .consoli span{
+	background: url(../../../static/images/widget/palette/consolidation.png);
+	background-size: cover;
+}
+.palette .consoli:active span{
+	background: url(../../../static/images/widget/palette/consolidation-h.png);
+	background-size: cover;
+}
+.palette .delet span{
+	background: url(../../../static/images/widget/palette/delet.png);
+	background-size: cover;
+}
+.palette .delet:active span{
+	background: url(../../../static/images/widget/palette/delet-h.png);
+	background-size: cover;
+}
+.consoli em,.delet em,.prac-list em{
+	display: block;
+	color: #999;
+}
+.palette .consoli:active em,.delet:active em,.practice:active em{
+	color: #39ba60;
+}
+/*试题详情底部操作栏部分end*/
+
+/*错题列表底部操作start*/
+.palette .cement{
+	display: block;
+	width: 100%;
+	height: 48px;
+	text-align: center;
+	line-height: 48px;
+	color: #fff;
+	font-size: 16px;
+	background: #39ba60;
+}
+.palette .cement:active{
+	background: #33a857;
+}
+/*错题列表底部操作end*/
+
+/*练习成绩底部操作栏start*/
+.palette .delet span.analy{
+	background: url(../../../static/images/widget/palette/resolve.png);
+	background-size: cover;
+}
+.palette .delet:active span.analy{
+	background: url(../../../static/images/widget/palette/resolve-h.png);
+	background-size: cover;
+}
+/*练习成绩底部操作栏end*/
+.palette.prac-list a{
+	width: 33.3%;
+}
+.practice span{
+	background: url(../../../static/images/widget/palette/prac-list.png);
+	background-size: cover;
+}
+.practice:active span{
+	background: url(../../../static/images/widget/palette/prac-list-h.png);
+	background-size: cover;
+}
+/*暂无报名课程start */
+body{
+	background1: #f0f0f0;
+}
+.mCourseNone span{
+	display: block;
+	width: 51%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 45px;
+}
+.mCourseNone span img{
+	width: 100%;
+}
+.mCourseNone p{
+	font-size: 16px;
+	color: #bcbcbc;
+	width: 62%;
+	margin: 35px auto;
+	text-align: center;
+	line-height: 26px;
+}
+.mCourseNone p a{
+	color: #39ba60;
+	text-decoration: none;
+}
+/*暂无报名课程end*/
+
+/* panx */
+.content_list{
+	padding-bottom1:50px;
+}
+.palette .cement{
+	position1: fixed;
+	bottom1: 0;
+}
+.loading {
+	display: none;
+	opacity: 1;
+	color: rgb(255, 155, 155);
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+	font-family: 微软雅黑;
+}
+.lookDetail{
+	width: 97%;
+	max-height: 400px;
+}
+.tiganImg{
+	width: 100%;
+	max-height: 400px;
+}

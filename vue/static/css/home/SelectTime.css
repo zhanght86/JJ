@@ -1,0 +1,185 @@
+/*查询错题产生时间 start*/
+html {
+	-webkit-text-size-adjust: none;
+	height: 100%;
+}
+body{
+	background: #f8f8f8;
+	height: 100%;
+}
+div,a,li,span{
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.container{
+	position: relative;
+	height: 100%;
+	background: #f8f8f8;
+	overflow-y:auto;
+	-webkit-overflow-scrolling: touch;
+}
+.firstkonw.container{
+	background-color: #f8f8f8;
+}
+.Consolidexercise.container{
+	background-color: #f8f8f8;
+}
+.Myanswer-content{
+	position: static;
+	overflow-y:auto;
+	-webkit-overflow-scrolling: touch;
+}
+.choose-prompt{
+	font-size: 12px;
+	color: #999;
+	margin:12px 15px 6px;
+}
+.choose-time{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background: #fff;
+}
+.choose-time a{
+	display: block;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.choose-time a:active{
+	background: #f3f0f0;
+}
+.time-group{
+	padding:12px 15px 12px 0px;
+	margin-left: 15px;
+	line-height: 19px;
+	font-size: 16px;
+	color: #333;
+	border-bottom: 1px solid #ddd;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.time-group:active{
+	background: #f2f0f0;
+}
+.time-group .choose-name{
+    display: inline-block;
+    float: left;
+	width: 94%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+.time-group .choose-name2{
+	display: inline-block;
+    float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+.time-group .choose-name3{
+	display: inline-block;
+    float: left;
+    width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+.time-group .choose-icon{
+	float: right;
+	display: inline-block;
+	width: 8px;
+	height: 13px;
+	margin-top: 3px;
+	background: url(../../../static/images/right-icon.png) no-repeat center;
+	background-size: 100%;
+	vertical-align: middle;
+}
+.choose-time a:last-child .time-group{
+	border-bottom: 0px;
+}
+/*查询错题产生时间 end*/
+/*自主选题练习 start*/
+.present-subject{
+	margin:12px 0px 15px;
+}
+.time-group .subject-knowledge{
+	float: right;
+	margin-right: 15px;
+	font-size: 16px;
+	color: #999;
+}
+.second-knowledge{
+	margin-top: 15px;
+}
+/*自主选题练习 end*/
+/*巩固练习 start*/
+.easy-wrong{
+	height: 67px;
+	padding:6px 15px 6px 0px;
+	margin-left: 15px;
+	font-size: 16px;
+	color: #333;
+	border-bottom: 1px solid #ddd;
+}
+/*.easy-wrong:active{
+	background: #f3f0f0;
+}*/
+.easy-wrong .choose-name{
+	display: inline-block;
+	line-height: 30px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.easy-wrong .easy-p{
+	font-size: 14px;
+	color: #999;
+}
+.easy-p .easy-date,.easy-p .easy-topic{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.easy-p .easy-date{
+	background: url(../../../static/images/wrong-date.png) no-repeat left;
+	background-size: 13px;
+}
+.easy-p .easy-topic{
+	background: url(../../../static/images/wrong-topic.png) no-repeat left;
+	background-size: 13px;
+}
+.accuracy{
+	float: right;
+	display: inline-block;
+	width: 54px;
+	height: 54px;
+	background: #94bdf4;
+	border-radius: 50%;
+}
+.accuracy-inside{
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	margin:3px;
+	background: #5b9aee;
+	border-radius: 50%;
+	text-align: center;
+}
+.accuracy-p1{
+	margin-top: 5px;
+	font-size: 14px;
+	color: #fff;
+}
+.accuracy-p2{
+	font-size: 12px;
+	color: #fff;
+}
+.respond .choose-name{
+	width: 80%;
+}
+.no-respond .choose-name{
+	width: 100%;
+}
+/*巩固练习 end*/
+/*推荐练习 start*/
+.choose-time a:last-child .easy-wrong{
+	border-bottom: 0px;
+}
+/*推荐练习 end*/

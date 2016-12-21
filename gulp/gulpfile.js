@@ -36,7 +36,7 @@ gulp.task('concat', function() {
 gulp.task('env', function() {
     return gulp.src(['../web/错题本/views/*.html'])                    
     //- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
-	.pipe(replace(/xxdevv/g,'xxpro'))
+	.pipe(replace(/xxdev/g,'xxprd'))
     .pipe(revCollector({replaceReved:true}))                                   
     //- 执行文件内css名的替换
     .pipe(gulp.dest('../mistakes/trunk/mistakes/web/views'));                                

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>垂直水平居中	</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+	/* box：不知道高度和宽度的时候（基本上可以通用，不兼容IE7以下) ,box1:css3写法，ie9+支持，box2:已知宽度和高度*/
+	.box{
+		width:300px;
+		height:200px;
+		position:absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		background-color:red;
+	}
+	.box1{
+		height:200px;
+		width:70%;
+		position:absolute;
+		left:50%;
+		top:50%;
+		transform:translate(-50%,-50%);
+		background-color:red;
+	}
+	.box2{
+		height:200px;
+		width:400px;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin-left:-200px;
+		margin-top:-100px;
+		1transform:translate(-50%,-50%);
+		background-color:red;
+	}
+	</style>
+</head>
+<body ontouchstart="">
+	<div class="box">
+		奋不顾身三厢不可不
+	</div>
+</body>
+</html>

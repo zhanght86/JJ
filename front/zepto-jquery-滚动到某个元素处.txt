@@ -1,0 +1,50 @@
+Nodes[N_divSkuProperty].click(function(event){
+								var $eT=$(this);
+								var docHeight=$(document).height();//获取页面总高度 
+								var winHeight=$(window).height();//获取页面显示区域高度 
+								var Top=$eT.offset().top;//获取所看区域距离上部的高 
+								if(docHeight==winHeight) 
+								{
+									return;//如果页面没有滚动条就退出 
+								}
+								if((docHeight-winHeight)<=Top) 
+								{ 
+							$('body').scrollTop(docHeight-winHeight);
+								} 
+								else 
+								{ 
+							$('body').scrollTop(Top-40);
+								}        
+								//$eT.focus();
+								event.preventDefault(); 
+								//$eT.style.position = 'fixed'; 
+								//$eT.style.top = '50px'; 
+								//$eT.style.zIndex = '999';
+								
+							});
+jquery:
+
+Nodes[N_divSkuProperty].click(function(event){
+								var $eT=$(this);
+								var docHeight=$(document).height();//获取页面总高度 
+								var winHeight=$(window).height();//获取页面显示区域高度 
+								var Top=$eT.offset().top;//获取所看区域距离上部的高 
+								if(docHeight==winHeight) 
+								{
+									return;//如果页面没有滚动条就退出 
+								}
+								if((docHeight-winHeight)<=Top) 
+								{ 
+								   $(document).scrollTop(docHeight-winHeight); 
+								} 
+								else 
+								{ 
+								   $(document).scrollTop(Top+30); 
+								}        
+								$eT.focus();
+								event.preventDefault(); 
+								//$eT.style.position = 'fixed'; 
+								//$eT.style.top = '50px'; 
+								//$eT.style.zIndex = '999';
+								
+							});

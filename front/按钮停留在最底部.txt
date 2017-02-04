@@ -1,0 +1,52 @@
+<div class="pro-info-detail-fixed">
+        <a href="/Sales/ShoppingCart" class="pro_bt_li-cart" >
+            <img width="36" height="34" src="http://r.ytrss.com/ceair/img/cart.png"/>                            
+         </a>
+        <a class="sub_bt_b sub_bt_com" href="javascript:void(0)">加入购物袋</a>
+         <a class="sub_bt sub_bt_com" href="javascript:void(0)">立即购买</a>
+        <a href="#" class="lnkEmpty">已 售 罄 </a>
+    </div>
+
+
+.pro-info-detail-fixed{
+	position: fixed;
+    bottom: 0;
+	padding:0;
+	width: 100%;
+	height:50px;
+	font-size: 16px;
+	text-align: center;
+}
+.pro_bt_li-cart{
+    width: 20%;
+    min-width: 40px;
+    max-width: 100px;
+    background-color: #2e2e2e;
+    opacity: 0.8;
+    float: left;
+    padding-top: 9px;
+    height: 50px;
+}
+.pro-info-detail-fixed a.sub_bt_com{
+    width: 40%;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    float: left;
+    color: white;
+}
+.pro-info-detail-fixed a.sub_bt{
+	background-color:#e5004f;
+}
+.pro-info-detail-fixed a.sub_bt_b{
+	background-color:#303030;
+}
+.pro-info-detail-fixed a.lnkEmpty{
+	background-color:#A5A1A1;
+	width:80%;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    float: left;
+    color: white;
+}

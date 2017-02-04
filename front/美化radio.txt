@@ -1,0 +1,18 @@
+<input type="radio" name="receipts" value="181" style="
+    /* border-radius: 5px; */
+    /* box-sizing: border-box; */
+    display: none;
+    "><label for="receipts" style="
+    padding-left: 20px;
+    cursor: pointer;
+    /* background: url(bg.gif) no-repeat left top; */
+    border-radius: 11px;
+    background-color: bisque;
+    width: 2px;
+    height: 20px;
+    border: 1px solid #ababab;
+    /* border-radius: 3px; */
+    background: #fff;
+    margin: 0 10px 0 0;
+    display: inline-block;
+"></label>

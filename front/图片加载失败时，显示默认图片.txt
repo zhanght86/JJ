@@ -1,0 +1,1 @@
+<img width="200" height="308" id="Licence" onerror="this.src='http://cdn.caiminjia.com/img/baidu/noLicence.jpg'" src="/static/shop/38/images/ShopDetail/Licence.jpg">

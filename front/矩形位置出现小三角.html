@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>矩形后面加小三角</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+	/* 垂直居中后，在后面加一个小三角  在上面加小三角*/
+	.box{
+		width:200px;
+		height:100px;
+		position:absolute;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		margin:auto;
+		background-color:red;
+	}
+	.box:after{
+	    content: ' ';
+		width: 0px;
+		height: 0px;
+		position: absolute;
+		right: -10px;
+		top: 45px;
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		border-left: 10px solid red;
+	}
+	.box:before{
+		content:' ';
+		width:0;
+		height:0;
+		position:absolute;
+		left:30px;
+		top:-10px;
+		border-left:10px solid transparent;
+		border-right:10px solid transparent;
+		border-bottom:10px solid red;
+	}
+	</style>
+</head>
+<body ontouchstart="">
+	<div class="box">
+		
+	</div>
+</body>
+</html>

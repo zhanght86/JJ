@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>图片轮播</title>
+  <meta charset="utf-8" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="huandeng" class="carousel slide huandengbox" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators"  style="bottom:-5px;">
+    <li data-target="#huandeng" data-slide-to="0" class="active"></li>
+    <li data-target="#huandeng" data-slide-to="1"></li>
+    <li data-target="#huandeng" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+	<div class="big-pic">
+	<div class="back-img">
+     <a href="http://www.100tmt.com/news/news_5691.shtml" target="_blank"> <img src="/uploadimage/573c26a96bdfdoriginal.jpg" alt="为选众创空间发愁？搞懂这五个类型的众创空间后，创业者选择不再困难！"></a>
+	 </div>
+	 <a href="http://www.100tmt.com/news/news_5691.shtml" target="_blank">
+      <div class="big-pic-content">
+      <h1 class="t-h1">为选众创空间发愁？搞懂这五个类型的众创空间后，创业者选择不再困难！</h1>
+      </div>
+	  </a>
+    </div>
+	</div>
+ <div class="item">
+	<div class="big-pic">
+	<div class="back-img">
+     <a href="http://www.100tmt.com/news/news_5688.shtml" target="_blank"> <img src="/uploadimage/573c1079ec5dboriginal.jpg" alt="和乔布斯一起创立了苹果 设计出第一个苹果商标 并握有苹果10%股份的人 如今却靠社会救助金过活"></a>
+	 </div>
+	 <a href="http://www.100tmt.com/news/news_5688.shtml" target="_blank">
+      <div class="big-pic-content">
+      <h1 class="t-h1">和乔布斯一起创立了苹果 设计出第一个苹果商标 并握有苹果10%股份的人 如今却靠社会救助金过活</h1>
+      </div>
+	  </a>
+    </div>
+	</div>
+ <div class="item">
+	<div class="big-pic">
+	<div class="back-img">
+     <a href="http://www.100tmt.com/news/news_5684.shtml" target="_blank"> <img src="/uploadimage/573bf1108081aoriginal.jpg" alt="【创客100视频】雷军引进小米思维 再创金山云神话"></a>
+	 </div>
+	 <a href="http://www.100tmt.com/news/news_5684.shtml" target="_blank">
+      <div class="big-pic-content">
+      <h1 class="t-h1">【创客100视频】雷军引进小米思维 再创金山云神话</h1>
+      </div>
+	  </a>
+    </div>
+	</div>
+
+  </div>
+    <!-- Controls -->
+  <a class="left carousel-control point" href="#huandeng" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+  <a class="right carousel-control point"  href="#huandeng" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only"></span>
+  </a>
+</div>
+<script>
+  /* (function () {
+    var carousel = document.querySelector(".carousel");
+    var img = carousel.querySelectorAll("div");
+    var len = img.length;
+    [].forEach.call(img, function (item) {
+      item.style.width = (100 / len) + "%";
+    });
+    carousel.style.left = "0%";
+    carousel.style.width = (100 * len) + "%";
+    var pre = document.querySelector(".pre");
+    var next = document.querySelector(".next");
+    var i = 0;
+    next.onclick = function () {
+      var left = carousel.style.left;
+      if (i < len - 1) {
+        carousel.style.left = (parseInt(left) - 100) + "%";
+        i++;
+      }
+      else if (i == len - 1) {
+        carousel.style.left = "0%";
+        i = 0;
+      }
+    };
+    pre.onclick = function () {
+      var left = carousel.style.left;
+      if (i > 0) {
+        carousel.style.left = (parseInt(left) + 100) + "%";
+        i--;
+      } else if (i == 0) {
+        carousel.style.left = -parseInt(carousel.style.width) + 100 + "%";
+        i = len - 1;
+      }
+    };
+  }()); */
+  $(function(){
+  var banner=function(auto,ispause){
+  var self=this;
+  self.auto=auto;
+  self.ispause=ispause;
+  this.init();
+  }
+  banner.prototype={
+  init:function(){
+		var self=this;
+		self.collectNodes();
+		[].forEach.call(self.img, function (item) {
+				item.style.width = (100 / self.len) + "%";
+		});
+		self.carousel.style.left = "0%";
+		self.carousel.style.width = (100 * self.len) + "%";
+		self.bindUI();
+		if(self.auto){
+		self.carousel_tabs.show();
+		self.start();
+		}
+  },
+  collectNodes:function(){
+        var self=this;
+        self.carousel=document.querySelector(".carousel");
+		self.img=self.carousel.querySelectorAll("div");
+		self.len=self.img.length;
+		self.pre = document.querySelector(".pre");
+		self.next = document.querySelector(".next");
+		self.index=0;
+		self.carousel_tabs=$('.carousel_tabs');
+  },
+  bindUI:function(){
+  var self=this;
+  self.next.onclick = function () {
+  self.OnNext();
+     /* var left = self.carousel.style.left;
+      if (self.index < self.len - 1) {
+        self.carousel.style.left = (parseInt(left) - 100) + "%";
+        self.index++;
+      }
+      else if (self.index == self.len - 1) {
+        self.carousel.style.left = "0%";
+        self.index = 0;
+      }*/
+    };
+	 self.pre.onclick = function () {
+	 self.OnPre();
+      /*var left = self.carousel.style.left;
+      if (self.index > 0) {
+        self.carousel.style.left = (parseInt(left) + 100) + "%";
+        self.index--;
+      } else if (self.index == 0) {
+        self.carousel.style.left = -parseInt(self.carousel.style.width) + 100 + "%";
+        self.index = self.len - 1;
+      }*/
+    };
+	if(self.ispause){
+	self.carousel.onmouseout=function(){
+	self.dongh(true);
+	};
+	self.carousel.onmouseover=function(){
+	self.carousel_tabs.find('.progress-bar').stop(true,false);
+	};
+	}
+  },
+  start:function(){
+  var self=this;
+  self.setCarouselTabs(0);
+   },
+   dongh:function(ispause){
+   var self=this,
+       index= self.index==0?self.index:self.index,
+	   _this=self.carousel_tabs.find('li:eq('+index+')');
+       //if(ispause){
+	   //self.carousel_tabs.find('.progress-bar').stop(true,false);
+	   //}else{
+	   self.carousel_tabs.find('.progress-bar').stop(true,false).innerWidth('0%');
+	   //}
+	   console.log(new Date());
+		_this.find('.progress-bar').animate({
+			width: '100%'
+		    }, {
+			duration: 4500,
+			easing: 'linear',
+			complete: function() {
+			_this.find('.progress-bar').innerWidth('0%');
+			self.OnNext();
+			}
+		    }); 		
+  },
+  OnNext:function(){
+  var self=this;
+  console.log(self.index);
+      var left = self.carousel.style.left;
+      if (self.index < self.len - 1) {
+        self.carousel.style.left = (parseInt(left) - 100) + "%";
+        self.index++;
+      }
+      else if (self.index == self.len - 1) {
+        self.carousel.style.left = "0%";
+        self.index = 0;
+      }
+	   if(self.auto){
+        self.setCarouselTabs(self.index);
+		}
+  },
+  OnPre:function(){
+  var self=this;
+   var left = self.carousel.style.left;
+      if (self.index > 0) {
+        self.carousel.style.left = (parseInt(left) + 100) + "%";
+        self.index--;
+      } else if (self.index == 0) {
+        self.carousel.style.left = -parseInt(self.carousel.style.width) + 100 + "%";
+        self.index = self.len - 1;
+      }
+	    if(self.auto){
+        self.setCarouselTabs(self.index);
+		}
+  },
+  setCarouselTabs:function(index)
+    {
+     var self=this;
+    self.carousel_tabs.find('li:eq('+index+')').addClass('active').siblings().removeClass('active');
+	if (index == 1)
+	{
+		$('.carousel_1').css("background-color", "red");
+		$('.carousel_2').css("background-color", "#c0c0c0");
+		$('.carousel_0').css("background-color", "#c0c0c0");
+	}
+	else if(index == 2)
+	{
+		$('.carousel_2').css("background-color", "red");
+		$('.carousel_0').css("background-color", "#d1d1d1");
+		$('.carousel_1').css("background-color", "#c0c0c0");	
+	}
+	else if(index == 0)
+	{
+		$('.carousel_0').css("background-color", "red");
+		$('.carousel_1').css("background-color", "#c0c0c0");
+		$('.carousel_2').css("background-color", "#d1d1d1");		
+	}
+	self.dongh();
+}
+  };
+  new banner(false,false);
+  });
+</script>
+</body>
+</html>

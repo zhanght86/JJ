@@ -1,0 +1,11 @@
+1.css
+    overflow: hidden;
+    word-break: break-all;
+    font-size: 15px;
+    width: 245px;
+    height: 45px;
+
+2.css 后面的去掉  https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
+  如果想要在一行里实现“超出长度显示省略号”，是可以的。
+overflow: hidden;white-space: nowrap;text-overflow:ellipsis;
+这几句css就可

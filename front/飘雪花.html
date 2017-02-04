@@ -1,0 +1,65 @@
+﻿<! doctype html>
+<html>
+<head>
+<style>
+html{
+	border-top:4px solid #009ad9
+}
+
+body{
+	border-top:2px solid #d8d8d8;
+	color:#494949;
+	font-size:15px;
+	padding:0;
+	margin:0;
+	font-family:"Microsoft Yahei","Simsun",Arial;
+background-color:red;
+	min-width:1200px;
+	line-height:25px;
+	height:2000px;
+}
+</style>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+
+</head>
+<body>
+<div>
+<button value="button" onclick="start();">start</button>
+</div>
+<script>
+
+/*(function($){$.fn.snow=function(options){var $flake=$('<div id="flake" />').css({'position':'absolute','top':'-50px'}).html('&#10052;'),documentHeight=$(document).height(),documentWidth=$(document).width(),defaults={minSize:10,maxSize:20,newOn:500,flakeColor:"#FFFFFF"},options=$.extend({},defaults,options);var interval=setInterval(function(){var startPositionLeft=Math.random()*documentWidth-100,startOpacity=0.5+Math.random(),sizeFlake=options.minSize+Math.random()*options.maxSize,endPositionTop=documentHeight-40,endPositionLeft=startPositionLeft-100+Math.random()*200,durationFall=documentHeight*10+Math.random()*5000;$flake.clone().appendTo('body').css({left:startPositionLeft,opacity:startOpacity,'font-size':sizeFlake,color:options.flakeColor}).animate({top:endPositionTop,left:endPositionLeft,opacity:0.2},durationFall,'linear',function(){$(this).remove()});},options.newOn);};})(jQuery);
+
+$.fn.snow({ minSize: 5, maxSize: 50, newOn: 1000, flakeColor: '#FFF' });
+*/
+var isStarting=false,interval=null,timeout=null;
+(function($){
+$.fn.snow=function(options){
+if(interval){clearInterval(interval);interval=null;clearTimeout(timeout);timeout=null;}
+isStarting=true;
+var $flake=$('<div id="flake" />').css({'position':'absolute','top':'-50px'}).html('&#10052;'),
+documentHeight=$(document).height(),
+documentWidth=$(document).width(),
+defaults={minSize:10,maxSize:20,newOn:500,flakeColor:"#FFFFFF",isStop:0},
+options=$.extend({},defaults,options);
+interval=setInterval(function(){
+var startPositionLeft=Math.random()*documentWidth-100,
+startOpacity=0.5+Math.random(),
+sizeFlake=options.minSize+Math.random()*options.maxSize,
+endPositionTop=documentHeight-40,
+endPositionLeft=startPositionLeft-100+Math.random()*200,
+durationFall=documentHeight*10+Math.random()*5000;
+$flake.clone().appendTo('body').css({left:startPositionLeft,opacity:startOpacity,'font-size':sizeFlake,color:options.flakeColor}).animate({top:endPositionTop,left:endPositionLeft,opacity:0.2},
+durationFall,'linear',function(){
+$(this).remove()});},options.newOn);
+if(options.isStop>0)
+{
+timeout=setTimeout(function(){clearInterval(interval);interval=null;},options.isStop);
+}
+};})(jQuery);
+function start(){
+$.fn.snow({ minSize: 5, maxSize: 50, newOn: 700, flakeColor: '#FFF' });
+}
+</script>
+</body>
+</html>

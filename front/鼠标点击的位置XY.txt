@@ -1,0 +1,72 @@
+ function pointerX(event) {
+         event = window.event || event;
+         return event.pageX || (event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
+     }
+     function pointerY(event) {
+         event = window.event || event;
+         return event.pageY || (event.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+     }
+
+
+
+ js 获取页面高度和宽度(兼容 ie firefox chrome),获取鼠标点击位置   .
+
+
+标签： javascript  
+
+2014-05-14 10:23 513人阅读 评论(0) 收藏 举报 
+.
+
+ 分类： 
+ 
+JavaScript（58）   
+
+
+  . 
+
+ <script>
+//得到页面高度
+ var yScroll = (document.documentElement.scrollHeight >document.documentElement.clientHeight) ? document.documentElement.scrollHeight : document.documentElement.clientHeight;
+  alert(yScroll)
+//得到页面宽度
+ var xScroll=(document.documentElement.scrollWidth>document.documentElement.clientWidth) ? document.documentElement.scrollWidth : document.documentElement.scrollWidth;
+
+  alert(xScroll)
+
+  </script>
+
+
+
+
+   //获取鼠标点击位置,兼容ie、firefox
+
+<body onclick="clicksEvent(event)">
+
+    function pointerX(event) {
+         event = window.event || event;
+         return event.pageX || (event.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
+     }
+     function pointerY(event) {
+         event = window.event || event;
+         return event.pageY || (event.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+     }
+
+
+ 
+
+    //平台、设备和操作系统
+    var system = {
+         win: false,
+         mac: false,
+         xll: false
+     };
+     //检测平台
+    var p = navigator.platform;
+     system.win = p.indexOf("Win") == 0;
+     system.mac = p.indexOf("Mac") == 0;
+     system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+     if (system.win || system.mac || system.xll) {
+         //平台、设备和操作系统
+    } else {
+         //手机
+    }

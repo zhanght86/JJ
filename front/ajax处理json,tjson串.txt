@@ -1,0 +1,282 @@
+﻿//兼容IE7
+if(typeof (console) == 'undefined'){
+	window.console={
+		log:function(e){}
+	}
+}
+//处理自定义TJson格式 如一般是[包[库[表[行]]]] [['Rindex','ID'],['1','6e014f804b8f46e1b129faa4b923af2d'],['2','6e014f804b8f46e1b129faa4b923a23d']]
+window.ADB={};
+(function(ADB,$){
+ADB.urls={
+	
+}
+ADB.merge = function () {
+	var _clone = function (source) {
+		switch (V.getType(source)) {
+			case 'Object':
+			case 'object':
+				return _merge({}, source);
+				break;
+			case 'array':
+			case 'Array':
+				var aim = [];
+				for (var i in source) {
+					aim.push(_clone(source[i]));
+				}
+				return aim;
+			default:
+				return source;
+				break;
+				}
+		};
+	var _merge = function (aim, source) {				
+		if (!(typeof (source) == 'object' && !V.isArray(source))) { return aim; }
+			for (var i in source) {
+				if (source[i] != undefined) {
+					if (!V.isValid(aim[i])) {
+						aim[i] = _clone(source[i]);
+					} else {
+						switch (V.getType(aim[i])) {
+							case 'object':
+							case 'Object':
+								_merge(aim[i], source[i]);
+								break;
+							case 'Array':
+								//处理数组
+								var hasmergeIndex = false;
+								for (var i3 = 0, k = source[i][i3]; i3 < source[i].length; i3++, k = source[i][i3]) {
+									if (typeof (k.mergeIndex) == "number") {
+										hasmergeIndex = true;
+										if (aim[i].length < (k.mergeIndex + 1)) {
+											aim[i].push(k);
+										} else {
+											aim[i][i3] = _merge(aim[i][i3], k);
+										}
+									} else if (typeof (k.moveIndex) == "number") {
+										hasmergeIndex = true;
+										aim[i].splice(k.moveIndex, 0, k);
+									}
+								}
+								if (!hasmergeIndex) {
+									aim[i] = _clone(source[i]);
+								}
+								break;
+							default:
+								aim[i] = source[i];
+								break;
+						}
+					}
+				}
+			}
+		return aim;
+	};
+	var argu = arguments;
+	if (argu.length < 2) { return argu[0] ? argu[0] : {} };
+	if(argu.length>0 && true == argu[argu.length-1]){
+		var _ = argu[0];
+		for (var i2 = 1; i2 < argu.length; i2++)
+			{
+				_ = _merge(_, argu[i2]);
+			}
+		return _;
+	}else{
+		var _ = {};
+		for (var i2 = 0; i2 < argu.length; i2++)
+		{
+			_ = _merge(_, argu[i2]);
+		}
+		return _;
+	}
+};
+ADB.isValid = function (data) {
+			if (typeof (data) != "undefined" && data != null && data != 'null' && !(data === '')) {
+				return true;
+			} else {
+				return false;
+			}
+};
+ADB.getValue = function (data, defaultData) {
+	return ADB.isValid(data) ? data : defaultData;
+};
+ADB.funrep1 = function(s,o){
+			var reg = /<%=[^(%>)]+%>/gi;
+			return s.replace(reg,function(word){
+				var prop = word.replace(/<%=/g,'').replace(/%>/g,'');
+				if(ADB.isValid(o[prop])){
+					return o[prop];
+				}else{
+					return "";
+				}
+			});
+};
+ADB.funrep2 = function(s,o){
+	var reg = /\{[^(})]+\}/gi;
+	return s.replace(reg,function(word){
+		var prop = word.replace(/\{/g,'').replace(/\}/g,'');
+		if(ADB.isValid(o[prop])){
+			return o[prop];
+		}else{
+			return "";
+		}
+	});
+};
+ADB.format = function(s,o){
+	if(!s || !o) {return ADB.getValue(s,'');}
+	if(s.indexOf('<%='>=0)){s = ADB.funrep1(s,o);}
+	if(s.indexOf('{'>=0)){s = ADB.funrep2(s,o);}
+	return s;
+};
+ADB.Ajax(param,func){
+   params=ADB.merge({
+	      async: true,
+		  type: "POST",
+		  dataType: "text",
+		  cache: false,
+		  data:{},
+		  success: function (data, status) {								
+			try {
+				    var urls=param.url.split('.');
+					if(func){func(ADB.finalData(data,urls[urls.length-1]);}
+				} catch (e) {
+					console.log('ADB.Ajax func异常',e);
+				}
+		 },
+		 error: function (request, status, error) {
+				console.log('ADB.Ajax异常 status:' + status, error);
+				if(func){func(false);}
+		 }					
+       }, param);
+   $.ajax(params);
+}
+ADB.finalData=function(data,type){
+	try {
+		var hasFalse = false;
+		switch (typeof (data)) {
+			case "string":
+				data = data.replace(/[\r\n]+/g,'');
+				if (data.replace(/^(\[+\]+)/g, '').length === 0) {
+					hasFalse = true;
+				} else {
+					hasFalse = (data.toLowerCase().indexOf('[false') >= 0?
+							(data.toLowerCase().indexOf('[false:') >= 0?(function(){
+							  var _data = data.toLowerCase().match(/\[false:[^\]]+\]/g);
+								if(_data && _data.length>0){
+									return _data[0].substr(7,_data[0].length-8);
+								} else return true;
+							})():true):false);
+				} 
+				if(!hasFalse){										
+										//如何判断tjson
+					try{
+						data = eval('('+data.replace(/[\r\n]+/g,'')+')');
+					}catch(e){console.log(data);}
+				}
+				break;
+			case "object":
+				if(data){
+					$(data).each(function (i, v) {
+						v=v+'';
+						hasFalse = (hasFalse || v == 'False' || v == 'false');
+					});
+				} else hasFalse = true;
+					break;							
+			case 'undefined':
+			default:
+				console.log('ADB.finalData data:typeof错误 type:'+data);
+				hasFalse = true;
+				break;
+		}            
+		if(hasFalse){
+			data = (hasFalse == true?false:hasFalse);
+		} else {
+			switch(type){
+				default:
+				case 'json':
+					break;
+				case 'tjson':
+					data = ADB.evalTJson(data);
+					break;
+			}
+		}
+		return data;
+							//if(func){func(data);}
+	} catch (e) {
+		console.log('ADB.finalData异常', e);
+		//if(func){func(false);}
+		return false;
+	}
+}
+ADB.evalTJson = function (data) {
+			//转换表用的
+	var _evalTJson = function (_dt) {
+		var res = [];
+		$(_dt).each(function (i, v) {
+			if (0 == i) return;
+				var s = {};
+				$(v).each(function (q, v2) {
+					s[_dt[0][q]] = v2;
+				});
+			res[i - 1] = s;
+		});
+		return res;
+	};
+	data = data[0];
+	var res = [];
+	for(var i in data){
+		var v = data[i];
+		res[i] = _evalTJson(v);
+	};
+	return res;
+}
+//自动判断获取userAgent状态
+	{
+		
+		ADB.userAgent = {
+			ie: false,
+			firefox: false,
+			chrome: false,
+			safari: false,
+			opera: false,
+			mobile:false,
+			pc:false,
+			pad:false,
+			iphone:false,
+			android:false,
+			refresh:function(){
+				V.userAgent.width = (function(){
+					//兼容IOS 与 andriod 但是千万不要设置body的高度为定制 应该为100%
+					if (document.body && document.body.clientWidth > 0)
+						return document.body.clientWidth;
+					else
+						return document.documentElement.clientWidth;
+				})();
+				V.userAgent.height = (function(){
+					//兼容IOS 与 andriod 但是千万不要设置body的高度为定制 应该为100%
+					if (document.body && document.body.clientHeight > 0)
+						return document.body.clientHeight;
+					else
+						return document.documentElement.clientHeight;
+				})();
+			}
+		};
+		ADB.userAgent.refresh();
+		var ua = navigator.userAgent.toLowerCase();
+		var s;
+		(s = ua.match(/msie ([\d]+)/)) ? ADB.userAgent.ie = s[1] :
+		(s = ua.match(/firefox\/([\d.]+)/)) ? ADB.userAgent.firefox = s[1] :
+		(s = ua.match(/chrome\/([\d.]+)/)) ? ADB.userAgent.chrome = s[1] :
+		(s = ua.match(/opera.([\d.]+)/)) ? ADB.userAgent.opera = s[1] :
+		(s = ua.match(/version\/([\d.]+).*safari/)) ? ADB.userAgent.safari = s[1] : 0;
+		(s = ua.match(/(mobile)/)) ?ADB.userAgent.mobile = true : false;
+		(s = ua.match(/(ipad)|(mediapad)/)) ? (ADB.userAgent.pad = true,ADB.userAgent.mobile = false) : false;
+		(s = ua.match(/(android)|(linux)/)) ? (ADB.userAgent.android = true) : false;
+		(s = ua.match(/(iphone)|(mac)/)) ? (ADB.userAgent.iphone = true) : false;
+		ADB.userAgent.pc = !(ADB.userAgent.mobile || ADB.userAgent.pad);
+		for (var key in ADB.userAgent) { if (key!='pc' && key!='width' && key!='height' && key!='refresh' && ADB.getValue(ADB.userAgent[key], false)) { ADB.userAgent.name = key; } }
+		if (ADB.getValue(ADB.userAgent.ie, false)) {
+			var ver = ADB.userAgent.ie;
+			eval('ADB.userAgent.ie' + ver + ' = true;ADB.userAgent.name=\'ie' + ver + '\';');
+		}
+	}
+
+})(ADB,jQuery);

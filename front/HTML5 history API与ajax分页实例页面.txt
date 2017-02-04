@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="description" content="HTML5 history API与ajax分页 ? panx-前端" />
+<meta name="description" content="panxweb前端学习实例页面 HTML5 history API与ajax分页" />
+<meta name="keywords" content="ajax, 分页, html5, history, API" />
+<meta name="author" content="panx" />
+<title>HTML5 history API与ajax分页 ? panx-前端</title>
+<style>
+body.html{
+ padding:0;
+ margin:0;
+ width:100%;
+ height:100%;
+}
+.history-head{
+width:100%;
+height:50px;
+line-height:50px;
+}
+.history-data{
+width:100%;
+height:50px;
+line-height:50px;
+text-align:center;
+}
+.history-button{
+width:100%;
+height:50px;
+line-height:50px;
+text-align:center;
+}
+</style>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+$(function(){
+ $(".history-buttons-change").bind("click", function(event) {
+ var query = location.href.split("?")[1],data=$(".history-data").html();
+ if (typeof query == "undefined") {	
+  history.replaceState(null, document.title, location.href.split("#")[0] + "?" + 0) + location.hash;//必需是域名
+  //history.replaceState(null, document.title, location.href.split("#")[0] + "?" + "0"") + location.hash;	
+        $(".history-data").html(0);
+		$(".history-buttons-change").trigger("click");
+ }else{
+ if(history.pushState && query){
+ $(".history-data").html((1+parseInt(data)));
+ // history处理
+		var title = "hjgj-" + data.replace(/\d+$/, "");
+		document.title = title;
+		if (event && /\d/.test(event.button)) {			
+			history.pushState({ title: title }, title, location.href.split("?")[0] + "?" + (1+parseInt(data)));
+		}
+ }
+}
+});
+if (history.pushState) {
+	window.addEventListener("popstate", function() {
+		$(".history-buttons-change").trigger("click");													
+	});
+	$(".history-buttons-change").trigger("click");	
+}
+});
+</script>
+</head>
+<body >
+<div class="history-head">HTML5 history API与ajax分页</div>
+<div class="history-data">
+</div>
+<div class="history-buttons">
+<button class='history-buttons-change'>下一页</button>
+</div>
+</body>
+</html>

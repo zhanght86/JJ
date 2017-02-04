@@ -1,0 +1,135 @@
+$(function(){
+	
+
+	
+	//panx  2016-12-2  分数线做成动态添加，删除功能
+	var scoreLine=function(option){
+		var _this=this;
+		_this.option = jQuery.extend({
+			data:[],//数据类型
+			id:'',
+			maxLen:9,
+			minLen:1,
+			},option||{});
+		_this.len=0;
+		_this.init();
+	}
+	scoreLine.prototype={
+		init:function(){
+			 var self=this;
+			 self.jdom={
+				cloumsUl:$("#"+self.option.id)
+			}
+			 self.bindUI();
+			 self.add();
+		},
+		bindUI:function(){
+			var self=this;
+			self.jdom.cloumsUl.on('click','.btn-add',function(e){
+				self.add();
+			});
+			self.jdom.cloumsUl.on('click','.cloum-li .btn-reduce',function(e){
+				var _this=$(this);
+				_this.closest('.cloum-li').remove();
+				self.len--;
+				if(self.len<self.option.maxLen){
+					self.jdom.cloumsUl.find('.btn-add').show();
+				}
+				if(self.len==self.option.minLen){
+					self.jdom.cloumsUl.find('.btn-reduce').hide();
+				}
+			});
+			self.jdom.cloumsUl.on('keyup afterpaste','.cloum-li .td-li input[type=text]',function(){
+				self.clearNoNum(this,1);
+			});
+			self.jdom.cloumsUl.on('keyup afterpaste','.cloum-li .cloum-li-form input',function(e){
+			   //console.log(2);
+				self.clearNoNum(this,2);
+			});
+			self.jdom.cloumsUl.on('blur','.cloum-li .td-li input[type=text],.cloum-li .cloum-li-form input',function(){
+				if(this.value.length>0){
+					var value= parseFloat(this.value),_this=$(this); 
+					var max=parseFloat(_this.attr('data-max')||'100'),min=parseFloat(_this.attr('data-min')||0);	
+					if(value>=max){
+						value=max;
+					}else if(value<=min){
+						value=min;
+					}
+					this.value=value;
+				} 
+			});
+		},
+		 format: function(s, o) {
+		 var self=this;
+			var reg = /\{[^(})]+\}/gi;
+			return s.replace(reg, function(word) {
+				var prop = word.replace(/\{/g, "").replace(/\}/g, "");
+					if (self.isValid(o[prop])) {
+                 return o[prop]
+					} else {
+						return ""
+					}
+			});
+		},
+		 isValid : function (data) {
+			if (typeof (data) != "undefined" && data != null && data != 'null' && !(data === '')) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		add:function(){
+			var self=this;
+			if(self.len==self.option.maxLen){
+			  if(console){
+			    console.log('不能再添加了，已经超出最大添加数'+self.option.maxLen);
+			  }else{
+				alert('不能再添加了，已经超出最大添加数'+self.option.maxLen);
+			  }
+			return;
+			}
+			//可以添加
+			var onehtml;
+			if(self.option.id=="avgUl"){
+				 onehtml='<div class="cloum-li"><ul class="cf table-ul">',li='<li class="cf td-li"><span class="sub-name">{subjectName}</span><div class="input-border"><input type="text" data-id="{subjectID}" data-max="{defaultTotalScore}" data-min="0" value="{avgScoreInput}" size="8" maxlength="8" onkeyup1="this.value=this.value.replace(/\\D/g,\'\')" onafterpaste1="this.value=this.value.replace(/\\D/g,\'\')"><span>分</span></div><span>满分：{defaultTotalScore}分</span></li>';
+			}else{
+				 onehtml='<div class="cloum-li"><div class="cloum-tit pb12"><label class="cf lab-form lab-input"><span class="lab-input-tit abbreviation">分数线名称</span><input class="lab-input-choice score-name" placeholder="请输入"></label><label class="cf lab-form lab-input cloum-li-form"><span class="lab-input-tit abbreviation">参考上线率</span><input class="lab-input-choice" placeholder="请输入"></label><button class="btn btn-reduce" type="button">删除</button></div><ul class="cf table-ul">',li='<li class="cf td-li"><span class="sub-name">{subjectName}</span><div class="input-border"><input type="text" data-id="{subjectID}" data-max="{defaultTotalScore}" data-min="0" value="" size="8" maxlength="8"><span>分</span></div><span>满分：{defaultTotalScore}分</span></li>';
+			}
+			for(var i=0;i<self.option.data.length;i++){
+				onehtml+=self.format(li,self.option.data[i]);
+			}
+			var mode=3-self.option.data.length%3;
+			for(var i=0;i<mode;i++){
+				onehtml+='<li class="cf td-li"></li>';
+			}
+			onehtml+='</ul></div>';
+			self.jdom.cloumsUl.append(onehtml);
+			self.len++;
+			if(self.len>=self.option.maxLen){
+				self.jdom.cloumsUl.find('.btn-add').hide();
+			}
+			if(self.len>self.option.minLen){
+				self.jdom.cloumsUl.find('.btn-reduce').show();
+			}else{
+			self.jdom.cloumsUl.find('.btn-reduce').hide();
+			}
+		},
+		clearNoNum:function(obj,num){  
+			obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符   
+			obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+			obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+			obj.value = obj.value.replace(new RegExp('^(\\-)*(\\d+)\\.(\\d{0,'+(num||2)+'}).*$'),'$1$2.$3');//只能输入两个小数   
+			if(obj.value.indexOf(".")< 0 && obj.value !=""){//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额  
+				var value= parseFloat(obj.value),_this=$(obj); 
+				var max=parseFloat(_this.attr('data-max')||'100'),min=parseFloat(_this.attr('data-min')||0);			
+					if(value>=max){
+						value=max;
+					}else if(value<=min){
+						value=min;
+					}
+					obj.value=value;
+			}  
+		} 
+	}
+	//var data=[{subjectName:'语文',defaultTotalScore:150,subjectID:324324},{subjectName:'数学',defaultTotalScore:100,subjectID:3244324},{subjectName:'英语',defaultTotalScore:120,subjectID:32434324},{subjectName:'语文1',defaultTotalScore:150,subjectID:324324},{subjectName:'语文2',defaultTotalScore:150,subjectID:324324}];
+	//new scoreLine({data:data,id:'cloumsUl'});

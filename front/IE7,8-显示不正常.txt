@@ -1,0 +1,26 @@
+1:如果是高度不在理想的高度，一般得设display:inline-block;
+2:textarea中maxlength，rows不起作用。
+if (V.userAgent.ie && parseInt(V.userAgent.ie) <= 8) {
+                            setTimeout(function () {
+                                $("textarea[maxlength]").off('keyup').on("keydown", function (event) {
+                                    var _this = $(this), val = _this.val();
+                                    if (event.keyCode == 13) {
+                                        if ((val.match(/\n/ig) || '').length > 1) {
+                                            return false;
+                                        }
+                                    }
+
+                                }).on("keyup", function (event) {
+                                    var _this = $(this), val = _this.val();
+                                    if (val.length >= 60) {
+                                        _this.val(_this.val().substr(0, 60));
+                                    }
+                                    else if (event.keyCode == 13) {
+                                        if (val.match(/\n/ig).length > 2) {
+                                            _this.val(_this.val().substr(0, 60).replace('\n\n', '\n'));
+                                        }
+                                    }
+
+                                });
+                            }, 2000);
+                        }

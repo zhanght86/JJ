@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>CSS计数器</title>
+<style type="text/css">
+html {
+   	color: #444;
+   	font: 16px/1.6 微软雅黑,"Microsoft YaHei";
+}
+ul {
+	list-style: none;
+	padding-left: 3em;
+}
+.menu {
+	counter-reset: chapter;
+}
+.menu > li {
+	counter-increment: chapter;
+	counter-reset: section;
+}
+.menu > li:before {
+	content: "第" counter(chapter) "章";
+	padding-right: .5em;
+}
+.menu ul > li {
+	counter-increment: section;
+}
+.menu ul > li:before {
+	content: "第" counter(section) "节";
+	padding-right: .5em;
+}
+</style>
+</head>
+<body>
+<ul class="menu">
+	<li>ASP教程
+		<ul>
+			<li>变量</li>
+			<li>函数</li>
+			<li>对象</li>
+			<li>数据库</li>
+			<li>输出</li>
+		</ul>
+	</li>
+	<li>PHP教程
+		<ul>
+			<li>PHP变量</li>
+			<li>PHP函数</li>
+			<li>对象</li>
+			<li>PHP数据库</li>
+			<li>输出</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

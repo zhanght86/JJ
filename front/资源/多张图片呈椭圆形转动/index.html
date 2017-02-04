@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//中心点横坐标
+		var dotLeft = ($(".container").width()-$(".dot").width())/2-100;
+		//中心点纵坐标
+		var dotTop = ($(".container").height()-$(".dot").height())/2-100;
+		//椭圆长边
+		a = 460;
+		//椭圆短边
+		b = 120;
+		//起始角度
+		var stard = 0;
+
+		//每一个BOX对应的角度;
+		var avd = 360/$(".container img").length;
+		//每一个BOX对应的弧度;
+		var ahd = avd*Math.PI/180;
+		//运动的速度
+		var speed = 2;
+		//图片的宽高
+		var wid = $(".container img").width();
+		var hei = $(".container img").height();
+		//总的TOP值
+		var totTop = dotTop+100;
+		var animateTime=100;
+	
+
+		//设置圆的中心点的位置
+		$(".dot").css({"left":dotLeft,"top":dotTop});
+
+		
+		//运动函数
+		var fun_animat = function(){
+			
+			speed = speed<360?speed:2;
+			
+			//运运的速度
+			speed+=2;
+			//运动距离，即运动的弧度数;
+			var ainhd = speed*Math.PI/180;
+			
+			//按速度来定位DIV元素
+			$(".container img").each(function(index, element){
+				var allpers = (Math.cos((ahd*index+ainhd))*b+dotTop)/totTop;
+				var wpers = Math.max(0.1,allpers);
+				var hpers = Math.max(0.1,allpers);
+				$(this).css({
+					"left":Math.sin((ahd*index+ainhd))*a+dotLeft,
+					"top":Math.cos((ahd*index+ainhd))*b+dotTop,
+					"z-index":Math.ceil(allpers*10),
+					"width":wpers*wid,
+					"height":hpers*hei,
+					"opacity":allpers
+				});
+     		});
+		}
+		$(".container").on('mouseover','img',function(){
+		  clearInterval(setAnimate);
+		  setAnimate=null;
+		}).on('mouseout','img',function(){
+		 setAnimate = setInterval(fun_animat,animateTime);
+		});
+		
+		//定时调用运动函数
+		var setAnimate = setInterval(fun_animat,animateTime);
+	})
+</script>
+<style type="text/css">
+*{margin:0;padding:0;}
+body{
+	background:#000000;
+	}
+.container{position:relative;width:1000px;height:800px; margin:0 auto;}
+.container img{position:absolute;width:293px;height:144px;background:#000; color:#FFFFFF; font-size:16px;}
+.dot{ position:absolute;width:20px;height:20px;background:#F00;}
+</style>
+</head>
+<body>
+<div class="container">
+	<img src="images/img001.jpg" alt="" />
+	<img src="images/img002.jpg" alt="" />
+	<img src="images/img003.jpg" alt="" />
+	<img src="images/img004.jpg" alt="" />
+	<img src="images/img005.jpg" alt="" />
+	<img src="images/img006.jpg" alt="" />
+	<img src="images/img007.jpg" alt="" />
+	<img src="images/img008.jpg" alt="" />
+	<img src="images/img009.jpg" alt="" />
+	<img src="images/img010.jpg" alt="" />
+</div>
+</body>
+</html>

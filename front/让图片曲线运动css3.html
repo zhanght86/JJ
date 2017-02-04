@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+div.circle1 {
+  height: 50px;
+  width: 50px;
+  /* border-radius: 25px; */
+  background-color: red;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+ transform-origin: -100px;
+  animation-name: circle1;
+}
+
+@keyframes circle1 {
+  0% {
+   transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+div.aa.circle {
+
+  position: absolute;
+  left: 100px;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-name: circle;
+}
+
+@keyframes circle {
+  0% {
+   transform: translate(0px, -50px);
+  }
+  50% {
+    transform: translate(165px, -110px);
+  }
+  75% {
+	transform: translate(95px, -170px);
+  }
+  100% {
+	 transform: translate(0px, -200px);
+  }
+}
+.aa{
+height: 50px;
+  width: 50px;
+   border-radius: 25px;
+  background-color: red;
+}
+</style>
+<script type="text/javascript">
+  $(function(){
+  var dss=$("#fsd"),sss=$("#sss");
+  sss.on('click',function(e){
+  if(dss.hasClass('circle')){
+  return;
+  }
+  setTimeout(function(){
+  dss.addClass('circle');
+  },100);
+  
+  });
+  dss.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){  
+              var _this=$(this).hide(500);  
+			  setTimeout(function(){
+			  _this.removeClass('circle').show(500);  
+			  },2000);
+			  });
+
+  
+  });
+  
+</script>
+</head>
+<body>
+<div>
+<input id="sss" type="button" value="sdfsfds">
+</div>
+<div id="fsd" class="aa"></div>
+</body>
+</html>

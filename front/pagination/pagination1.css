@@ -1,0 +1,111 @@
+@charset "utf-8";
+.pagination{
+    box-sizing: border-box;
+    text-align: center;
+    margin: 20px 0;
+    padding: 0;
+    font-size:13px;
+}
+.pagination a {
+    text-decoration: none;
+	border: 1px solid #AAE;
+	color: #15B;
+}
+.pagination a.pagination-num,.pagination .current{
+    box-sizing: border-box;
+    display: inline-block;
+    zoom: 1;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #666666;
+    height: 30px;
+    line-height: 30px;
+    min-width: 30px;
+    position: relative;
+    margin-right: 5px;
+    font-family: 'Microsoft Yahei';
+    font-size: 13px;
+}
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 0.1em 0.4em;
+    margin-right: 5px;
+	margin-bottom1: 5px;
+}
+
+.pagination .current {
+    background-color: #999999;
+    color: #fff;
+    border: 1px solid #999;
+}
+
+.pagination .prev, .pagination .next{
+    background: url(../../images/ico-page.png) no-repeat;
+    box-sizing: border-box;
+    display: inline-block;
+    zoom: 1;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #666666;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    position: relative;
+    margin-right: 5px;
+    font-family: 'Microsoft Yahei';
+    font-size: 13px;
+    vertical-align: bottom;
+}
+
+.pagination .prev{
+    background-position: -2px -1px;
+}
+.pagination .next{
+    background-position: -1px -33px;
+}
+.pagination .pagination-text {
+    height: 30px;
+    line-height: 30px;
+    width: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-right: 3px;
+    vertical-align: 2px;
+    text-align: center;
+}
+.pagination-label{
+    margin-left:10px;
+}
+.pagination .pagination-go {
+    width: 46px;
+    height: 31px;
+    background-color: #999999;
+    color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: 'Microsoft Yahei';
+    cursor: pointer;
+    margin-left:8px;
+    vertical-align: 1px;
+}
+.pagination-total{
+    margin-right:5px;
+    color: #666666;
+}
+.pagination-select{
+    height: 30px;
+    line-height: 30px;
+    width: 50px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: 2px;
+}
+

@@ -1,7 +1,7 @@
-var fileConfig1=function(){
+var two=function(){
     console.log(3);
 }
-fileConfig1.prototype.modules=function(){
+two.prototype.modules=function(){
     return {};
 }
-var qqq=new fileConfig1();
+var qqq=new two();

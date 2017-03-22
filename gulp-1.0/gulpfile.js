@@ -17,18 +17,54 @@ var gulp=require('gulp'),
     babel=require('gulp-babel'),
     autoprefixer=require("gulp-autoprefixer"),
     concat=require('gulp-concat'),
-    webpack=require('gulp-webpack');
+    gulpOpen = require('gulp-open'),
+    fileinclude = require('gulp-file-include'),
+    connect = require('gulp-connect'),
+    webpack=require('gulp-webpack'),
+    cheerio=require('gulp-cheerio');
 var del=require('del');  //删除文件插件
 var named = require('vinyl-named');
 var eslint = require('gulp-eslint');
-var gulpSequence=require('gulp-sequence');
 var runSequence=require('run-sequence');
 
 var staticConfig=require("./config/html-static.config");
 var staticmini=staticConfig.pages;
 var commonStatic=staticConfig.common;
 var pageTask=[];
+var host = {
+    path: 'dev/',
+    port: 3000,
+    html: 'index.html'
+};
+var webpackConfig={
+    module: {
+        loaders: [
+            { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
+        ]
+    },
+    babel: {
+        presets: ['es2015'],
+        plugins: ['transform-runtime']
+    },
+    output1:{
+        filename:'[name].js'
+    }
+};
+//mac chrome: "Google chrome",
+var browser ="Google chrome"; /*os.platform() === 'linux' ? 'Google chrome' : (
+    os.platform() === 'darwin' ? 'Google chrome' : (
+        os.platform() === 'win32' ? 'chrome' : 'firefox'));*/
+
 gulp.task('allless',function(){
+    return gulp.src('src/less/**/*.less')
+        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))//
+        .pipe(gulpSourceMap.init()) //sourcemaps初始化
+        .pipe(gulpless())  //编译
+        .pipe(autoprefixer())
+        .pipe(gulpSourceMap.write())
+        .pipe(gulp.dest('src/css/'));
+});
+gulp.task('dev:allless',function(){
     return gulp.src('src/less/**/*.less')
         .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))//
         .pipe(gulpSourceMap.init()) //sourcemaps初始化
@@ -48,20 +84,14 @@ gulp.task('commoncss',function(){
         .pipe(rename({suffix: '.comCss'}))
         .pipe(gulp.dest('./rev'));
 });
+gulp.task('dev:css',["dev:allless"],function(){
+    return gulp.src('src/css/**/*.css')
+        .pipe(gulp.dest('dev/static/css/'));
+});
 gulp.task('commonjs',function(){
     if(commonStatic.js.length==0){return;}
     return gulp.src(commonStatic.js)
-        /*.pipe(webpack({
-            module: {
-                loaders: [
-                    { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
-                ]
-            },
-            babel: {
-                presets: ['es2015'],
-                plugins: ['transform-runtime']
-            }
-        }))*/
+        /*.pipe(webpack(webpackConfig))*/
         .pipe(concat("common.js"),{newLine:';;'})
         .pipe(named())
         //.pipe(uglify()) //压缩js
@@ -70,6 +100,12 @@ gulp.task('commonjs',function(){
         .pipe(rev.manifest())    //- 生成一个rev-manifest.json
         .pipe(rename({suffix: '.comJs'}))
         .pipe(gulp.dest('./rev'));
+});
+gulp.task('dev:js',function(){
+    return gulp.src("src/js/**/*.js")
+    .pipe(webpack(webpackConfig))
+        .pipe(named())
+        .pipe(gulp.dest('dev/static/js/'));
 });
 gulp.task('static',["allless"],function(){
     pageTask=[];
@@ -123,23 +159,69 @@ function addTask(typeName,paths,name){
 function cssUglify1(paths,name){
 
 }
-gulp.task('html',function(){
-    return gulp.src(['./rev/*.json', 'views/*.html'])
+gulp.task('revhtml',function(){
+    return gulp.src( 'views/*.html')
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(replace(/\/src\//g,'/static/'))
+        .pipe(cheerio(function ($) {
+            $('script[min]').remove();
+            $('link[min]').remove();
+            $('head').append('<link rel="stylesheet" href="../static/css/common/common.css"><script type="text/javascript" src="../static/js/common/common.js">');
+        }))
+        .pipe(gulp.dest('web/'));
+})
+gulp.task('html',["revhtml"],function(){
+    return gulp.src(['./rev/*.json', 'web/*.html'])
         //- 读取 rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector({replaceReved:true}))
         //- 执行文件内css名的替换
         .pipe(gulp.dest('web/'));
     //- 替换后的文件输出的目录
 });
-/*gulp.task('autoTask',["static"],function(){
+gulp.task('dev:html',function(){
+    return gulp.src('views/*.html')
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(replace(/\/src\//g,'/static/'))
+        .pipe(gulp.dest('dev/web/'));
+});
 
-});*/
+gulp.task('connect', function () {
+    console.log('connect------------');
+    connect.server({
+        root: host.path,
+        port: host.port,
+        livereload: true
+    });
+});
+gulp.task('open', function (done) {
+    gulp.src('')
+        .pipe(gulpOpen({
+            web: browser,
+            uri: 'http://localhost:3000/web'
+        }))
+        .on('end', done);
+});
+
+//发布
 gulp.task('dest',["static"],function(){
     runSequence("commoncss","commonjs",pageTask,"html");
 });
+//开发
+gulp.task('dev',["dev:allless"],function(cb){
+    gulp.start(['connect',"dev:css","dev:js","dev:html", 'watch', 'open']);
+});
+gulp.task('watch', function (done) {
+    gulp.watch('src/**/*', ["dev:css","dev:js"])
+        .on('end', done);
+});
 gulp.task('clean',function(){
-    del(['static/css', 'static/js','web','rev']);
+    del(['static/css', 'static/js','web','rev','dev']);
 });
 
 

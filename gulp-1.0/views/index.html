@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="../src/css/index.css" type="text/css">
-    <script type="text/javascript" src="../src/js/index.js"></script>
+    <script min type="text/javascript" src="../src/js/common/index.js"></script>
 </head>
 <body>
 <div class="box">
-
+    @@include('./part/view.html')
+    @@include('./part/var.html', {
+    "name": "haoxin",
+    "age": 12345,
+    "socials": {
+    "fb": "facebook.com/include",
+    "tw": "twitter.com/include"
+    }
+    })
 </div>
-
+<script type="text/javascript" src="../src/js/index.js"></script>
 </body>
 </html>

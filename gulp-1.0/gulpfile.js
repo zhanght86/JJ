@@ -80,9 +80,12 @@ gulp.task('commoncss',function(){
         .pipe(minifycss())  //压缩css
         .pipe(rev())   //- 文件名加MD5后缀
         .pipe(gulp.dest('static/css/common/'))
-        .pipe(rev.manifest())     //- 生成一个rev-manifest.json
-        .pipe(rename({suffix: '.comCss'}))
-        .pipe(gulp.dest('./rev'));
+        .pipe(rev.manifest({
+            path: 'rev/rev-manifest-common.json',
+            merge: true
+        }))     //- 生成一个rev-manifest.json
+        //.pipe(rename({suffix: '.common'}))
+        .pipe(gulp.dest('./'));
 });
 gulp.task('dev:css',["dev:allless"],function(){
     return gulp.src('src/css/**/*.css')
@@ -97,29 +100,30 @@ gulp.task('commonjs',function(){
         //.pipe(uglify()) //压缩js
         .pipe(rev())   //- 文件名加MD5后缀
         .pipe(gulp.dest('static/js/common/'))
-        .pipe(rev.manifest())    //- 生成一个rev-manifest.json
-        .pipe(rename({suffix: '.comJs'}))
-        .pipe(gulp.dest('./rev'));
+        .pipe(rev.manifest({
+            path: 'rev/rev-manifest-common.json',
+            merge: true
+        }))    //- 生成一个rev-manifest.json
+       // .pipe(rename({suffix: '.common'}))
+        .pipe(gulp.dest('./'));
 });
 gulp.task('dev:js',function(){
     return gulp.src("src/js/**/*.js")
-    .pipe(webpack(webpackConfig))
+        .pipe(babel())
+    //.pipe(webpack(webpackConfig))
         .pipe(named())
         .pipe(gulp.dest('dev/static/js/'));
 });
 gulp.task('static',["allless"],function(){
     pageTask=[];
     Object.keys(staticmini).forEach(function(name) {//合并压缩package.json里指定的文件
-        console.log(staticmini[name].js);
         pageTask.push('pageJs-'+name);
         pageTask.push('pageCss-'+name);
         addTask("css",staticmini[name].css,name);
         addTask("js",staticmini[name].js,name);
     });
-    console.log(pageTask);
 });
 function addTask(typeName,paths,name){
-    console.log(typeName,paths,name);
     if(typeName=='js'){
         gulp.task('pageJs-'+name,function(){
             return gulp.src(paths)
@@ -139,9 +143,13 @@ function addTask(typeName,paths,name){
                 .pipe(uglify()) //压缩js
                 .pipe(rev())   //- 文件名加MD5后缀
                 .pipe(gulp.dest('static/js/'))
-                .pipe(rev.manifest())    //- 生成一个rev-manifest.json
-                .pipe(rename({suffix: '.js'}))
-                .pipe(gulp.dest('./rev'));
+                .pipe(rev.manifest({
+                    path: 'rev/rev-manifest.json',
+                    //base: './rev/rev-manifest-js.json',
+                    merge: true
+                }))    //- 生成一个rev-manifest.json
+                //.pipe(rename({suffix: '.js'}))
+                .pipe(gulp.dest('./'));
         });
     }else if(typeName=="css"){
         gulp.task('pageCss-'+name,function() {
@@ -150,9 +158,12 @@ function addTask(typeName,paths,name){
                 .pipe(minifycss())  //压缩css
                 .pipe(rev())   //- 文件名加MD5后缀
                 .pipe(gulp.dest('static/css/'))
-                .pipe(rev.manifest())     //- 生成一个rev-manifest.json
-                .pipe(rename({suffix: '.css'}))
-                .pipe(gulp.dest('./rev'));
+                .pipe(rev.manifest({
+                    path: 'rev/rev-manifest.json',
+                    merge: true
+                }))     //- 生成一个rev-manifest.json
+                //.pipe(rename({suffix: '.css'}))
+                .pipe(gulp.dest('./'));
         });
     }
 }
@@ -192,7 +203,6 @@ gulp.task('dev:html',function(){
 });
 
 gulp.task('connect', function () {
-    console.log('connect------------');
     connect.server({
         root: host.path,
         port: host.port,

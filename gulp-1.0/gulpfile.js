@@ -27,6 +27,13 @@ var named = require('vinyl-named');
 var eslint = require('gulp-eslint');
 var runSequence=require('run-sequence');
 
+//dev
+var source     = require('vinyl-source-stream'),
+    browserify = require('browserify'),
+    glob       = require('glob'),
+    es         = require('event-stream'),
+    babelify=require('babelify');
+
 var staticConfig=require("./config/html-static.config");
 var staticmini=staticConfig.pages;
 var commonStatic=staticConfig.common;
@@ -64,14 +71,14 @@ gulp.task('allless',function(){
         .pipe(gulpSourceMap.write())
         .pipe(gulp.dest('src/css/'));
 });
-gulp.task('dev:allless',function(){
+gulp.task('dev:allless',["dev:css"],function(){
     return gulp.src('src/less/**/*.less')
         .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))//
         .pipe(gulpSourceMap.init()) //sourcemaps初始化
         .pipe(gulpless())  //编译
         .pipe(autoprefixer())
         .pipe(gulpSourceMap.write())
-        .pipe(gulp.dest('src/css/'));
+        .pipe(gulp.dest('dev/static/css/')).pipe(connect.reload());
 });
 gulp.task('commoncss',function(){
     if(commonStatic.css.length==0){return;}
@@ -87,7 +94,7 @@ gulp.task('commoncss',function(){
         //.pipe(rename({suffix: '.common'}))
         .pipe(gulp.dest('./'));
 });
-gulp.task('dev:css',["dev:allless"],function(){
+gulp.task('dev:css',function(){
     return gulp.src('src/css/**/*.css')
         .pipe(gulp.dest('dev/static/css/'));
 });
@@ -107,12 +114,27 @@ gulp.task('commonjs',function(){
        // .pipe(rename({suffix: '.common'}))
         .pipe(gulp.dest('./'));
 });
-gulp.task('dev:js',function(){
-    return gulp.src("src/js/**/*.js")
+gulp.task('dev:js',function(done){
+    glob("src/js/**/*.js", function(err, files) {
+        if(err) done(err);
+        var tasks = files.map(function(entry) {
+            return browserify({ entries: [entry] }).transform ( babelify )
+                .bundle()
+                .pipe(source(entry))
+                .pipe(rename(function (path) {
+                    path.dirname = path.dirname.replace('src\\js','');
+                    path.extname = ".js"
+                }))
+                .pipe(gulp.dest('dev/static/js/'));
+        });
+        es.merge(tasks).on('end', done);
+    });
+
+   /* return gulp.src("src/js/!**!/!*.js")
         .pipe(babel())
     //.pipe(webpack(webpackConfig))
         .pipe(named())
-        .pipe(gulp.dest('dev/static/js/'));
+        .pipe(gulp.dest('dev/static/js/'));*/
 });
 gulp.task('static',["allless"],function(){
     pageTask=[];
@@ -134,7 +156,7 @@ function addTask(typeName,paths,name){
                         ]
                     },
                     babel: {
-                        presets: ['es2015'],
+                        presets: ['es2015','stage-0'],
                         plugins: ['transform-runtime']
                     }
                 }))
@@ -224,11 +246,17 @@ gulp.task('dest',["static"],function(){
 });
 //开发
 gulp.task('dev',["dev:allless"],function(cb){
-    gulp.start(['connect',"dev:css","dev:js","dev:html", 'watch', 'open']);
+    runSequence("dev:js","dev:html",['connect', 'watch', 'open']);
+});
+gulp.task('reload',["dev:js"],function(){
+    gulp.src('').pipe(connect.reload());
 });
 gulp.task('watch', function (done) {
-    gulp.watch('src/**/*', ["dev:css","dev:js"])
-        .on('end', done);
+   /* gulp.watch('src/!**!/!*', ["dev:allless","dev:js",reload])
+        .on('end',done);*/
+    gulp.watch('src/css/**/*.css', ["dev:allless"]);
+    gulp.watch('src/less/**/*.less', ["dev:allless"]);
+    gulp.watch('src/js/**/*.js',  ["reload"]);
 });
 gulp.task('clean',function(){
     del(['static/css', 'static/js','web','rev','dev']);
@@ -254,3 +282,9 @@ Object.keys(minijs).forEach(function(name){//合并压缩package.json里指定�
             .pipe(gulp.dest('dist/js'));
     });
 });*/
+
+
+/*
+参考资料：
+http://www.w2bc.com/article/120144   browserify 之前要用babel转换成es5代码  ,包含设置兼容ie8的情况
+*/

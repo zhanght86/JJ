@@ -3,29 +3,70 @@
       <!-- 头部固定切换start -->
       <div v-if="isParent" class="fix-tab cf">
         <span class="textChild">{{name}}</span>
-        <a href="tabchild.html" v-show="ismult" class="btnChild ">切换</a>
+        <a href="tabchild.html" v-show="ismult" class="btnChild">切换</a>
       </div>
       <!-- 头部固定切换end -->
-      <div></div>
+      <div class="consolidateexer-mainbody">
+        <statistics :sparams="sparams"></statistics>
+        <div class="choose-subject-1">
+          <a href="javascript:;">
+            <div class="time-group subjectDiv">
+              <span class="current-subject">当前学科</span>
+              <span class="choose-icon"></span>
+              <span class="subject-knowledge">{{subjectName}}</span>
+            </div>
+          </a>
+        </div>
+    </div>
     </div>
 </template>
 
 <script type="text/javascript">
+  import statistics from '../components/statistics'
     export default {
-        name: 'consolidatcdsssce',//
-        data(){//
+      components:{statistics},
+        name: 'consolidateexr',////
+      data(){
             return {
-              isParent:true,
-              name:'dsss',
-              ismult:111//
+              params:null,
+              paperResource:'01',
+              qidResource:'05'
             }
-         },
+      },
         created(){
-          console.log(this.API);
-            //console.log(this.API.getUrlKey('name'));
-          var _thisss=this;//
-          this.$store.dispatch('getRecommend',{a:1}).then(res=>{console.log(res.data)});
+          //console.log(this.API);//
+            this.params={phaseID:this.API.getUrlKey('phaseID'),subjectID:this.API.getUrlKey('subjectID'),subjectName:this.API.getUrlKey('subjectName'),timeID:this.API.getUrlKey('timeID'),timeName:this.API.getUrlKey('timeName'),multiChild:this.API.getUrlKey('multiChild'),role:this.API.getUrlKey('role'),name:this.API.getUrlKey('name')}
+            if(this.params.phaseID.length==0){
+                this.$store.dispatch('getAccessRec',{type:1}).then(res=>{
+                    var result=res.data;
+                    if(result&&result.status==0){
+                        Object.assign(this.params,result.data);
+                        //this.params=result.data;
+                    }else{
+                        console.log('error:'+result?result.msg:'数据未获取到');
+                    }
+                });
+            }
+            this.$store.dispatch('getRecommend',{a:1}).then(res=>{console.log(res.data)});
+        },
+      computed:{
+            isParent:function(){
+                return this.params.role=='0'?true:false;//
+            },
+            name:function(){
+                return this.params.name;
+            },
+            ismult:function(){
+                return this.params.multiChild=='1'?true:false;
+            },
+        subjectName:function(){
+          return this.params.subjectName;//
+        },
+        sparams:function(){
+            console.log(this.params.phaseID);
+            return {phaseID:this.params.phaseID,subjectID:this.params.subjectID,timeID:this.params.timeID};//
         }
+      }
     }
 </script>
 

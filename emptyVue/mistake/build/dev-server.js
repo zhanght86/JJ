@@ -82,15 +82,25 @@ module.exports = app.listen(port, function (err) {
 //panx
 function response(req,res){
   var pathname=url.parse(req.url).pathname.replace('/api/','');
-  var result={};console.log(req.body.a);
+  var result={status:0};console.log(req.body.a);
   switch(pathname){
     case 'getRecommend':
-      result={name:1,s:2};
+      result.data={name:1,s:2};
         break;
+    case 'getAccessRec':
+      result.data={phaseID:3,subjectID:2,subjectName:'初中数学',timeID:'t1',timeName:'近一周'}
+      break;
+    case 'getStatistics':
+      result.data={statisticsError: 400,//累积错题
+        statisticsExercise: 1000,//累积练习
+        todayError: 4,//今日新增错题
+        todayExercise: 44//今日练习题目
+        }
+      break;
   }
   console.log(pathname);
   //res.write('{name:'+(pathname||"no name")+'}');
   res.json(result);
   res.end();
 }
-app.post('/api/*getRecommend',response);
+app.post('/api/*',response);

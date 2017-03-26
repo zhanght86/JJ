@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../src/css/index.css" type="text/css">
+    <script min type="text/javascript" src="../src/js/common/jquery-3.2.0.min.js"></script>
+</head>
+<body>
+<div class="box">
+    @@include('./part/view.html')
+    @@include('./part/var.html', {
+    "name": "haoxin",
+    "age": 12345,
+    "socials": {
+    "fb": "facebook.com/include",
+    "tw": "twitter.com/include"
+    }
+    })
+</div>
+<script type="text/javascript" src="../src/js/index.js"></script>
+</body>
+</html>

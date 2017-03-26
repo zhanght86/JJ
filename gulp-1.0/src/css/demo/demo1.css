@@ -1,0 +1,13 @@
+.boxx {
+  color: #fe33ac;
+  border-color: #fdcdea;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: red;
+}
+.boxx div {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRlbW8xLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWU7RUFDZixzQkFBc0I7RUFDdEIscUJBQWM7RUFBZCxxQkFBYztFQUFkLGNBQWM7RUFDZCxzQkFBc0I7Q0FDdkI7QUFDRDtFQUVFLHVDQUF1QztDQUN4QyIsImZpbGUiOiJkZW1vL2RlbW8xLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib3h4IHtcbiAgY29sb3I6ICNmZTMzYWM7XG4gIGJvcmRlci1jb2xvcjogI2ZkY2RlYTtcbiAgZGlzcGxheTogZmxleDtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xufVxuLmJveHggZGl2IHtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiAwIDAgNXB4IHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgYm94LXNoYWRvdzogMCAwIDVweCByZ2JhKDAsIDAsIDAsIDAuMyk7XG59XG4iXX0= */

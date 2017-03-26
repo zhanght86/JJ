@@ -1,5 +1,8 @@
-说明1
+(1)当提示要输入用户名跟邮箱的时候设置
 
 
+admin@DESKTOP-3VIPBDA MINGW64 /e/panx/gits (master)
+$ git config --global user.name "panxiong"
 
-更新
+admin@DESKTOP-3VIPBDA MINGW64 /e/panx/gits (master)
+$ git config --global user.email "303507479@163.com"

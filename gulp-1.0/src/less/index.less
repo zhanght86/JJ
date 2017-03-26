@@ -1,0 +1,17 @@
+@import "demo/demo1";
+@color: #00c; /* 蓝色 */
+#header {
+  @color: #c00; /* red */
+  border: 1px solid @color; /* 红色边框 */
+  font-size:30px;
+  display:flex;
+}
+.box {
+  color: saturate(@base, 25%);
+  border-color: lighten(@base, 30%);
+  div,h1 { .box-shadow(0 0 5px, 30%) }
+  display: flex;
+}
+#footer {
+  border: 1px solid @color; /* 蓝色边框 */
+}

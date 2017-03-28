@@ -10,7 +10,6 @@ Vue.prototype.API=API;
 /* eslint-disable no-new */
 new Vue({
   el: '#consolidateexer',
-  data:{a1:1,b1:22   },
   store,
   render:h=>h(cs)
 });

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css布局</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+	html,body{
+	margin:0;
+	padding:0;
+	}
+	#header,#footer{
+		height:50px;
+		line-height:50px;
+		background-color:blue;
+	}
+	.layout{
+		max-width:700px;
+		margin:0 auto;
+		background-color:red;
+	}
+	.body{
+	background-color:blue;
+	}
+	
+	
+		#content{
+			max-width:700px;
+			height:300px;
+			    margin: 0 auto;
+		}
+		.c_left,.c_right{
+			width:200px;
+			height:100%;
+			text-align:center;
+			line-height:300px;
+			background:red;
+		}
+		.c_left{
+		float:left;
+		}
+		.c_right{
+		float:right;
+		}
+		.c_body{
+		margin:0 200px;text-align:center;
+		height:100%;line-height:300px;
+		background-color:blue;
+		}
+		
+		.main {        
+    float: left;       
+    width: 100%; background: blue;  height: 100%;
+ }  
+ .sub {       
+    float: left;        
+    width: 190px;        
+    margin-left: -100%;               
+    position: relative;  
+    left: -190px;      background: green;    height: 100%;
+}   
+.extra {        
+    float: left;        
+    width: 230px;        
+    margin-left: -230px; 
+    position: relative;     height: 100%;    background: red;
+    right: -230px;  
+ }
+#bd {        
+    padding: 0 230px 0 190px;   
+	    height: 300px;
+ }
+	</style>
+</head>
+<body>
+	<div id="header">
+		<div class="layout">header</div>
+	</div>
+	<div class="layout body">body</div>
+	<div id="footer">
+		<div class="layout">footer</div>
+	</div>
+	<br><br><br>
+	<div id="content">
+		<div class="c_left">left</div>
+		<div class="c_right">right</div>
+		<div class="c_body">body</div>
+	</div>
+	<br><br><br>
+	 <div id="bd">         
+    <div class="main"></div>        
+    <div class="sub"></div>        
+    <div class="extra"></div>  
+</div>
+</body>
+</html>
